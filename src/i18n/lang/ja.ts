@@ -34,7 +34,7 @@ export default {
     allPosts: "すべての記事",
   },
   footer: {
-    copyright: "著作権",
+    copyright: "Copyright",
     allRightsReserved: "無断転載を禁じます。",
   },
   pages: {
