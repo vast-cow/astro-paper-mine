@@ -35,7 +35,7 @@ export default {
   },
   footer: {
     copyright: "Copyright",
-    allRightsReserved: "無断転載を禁じます。",
+    allRightsReserved: "All rights reserved.",
   },
   pages: {
     tagTitle: "タグ",
