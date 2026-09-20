@@ -7,6 +7,4 @@ tags:
 description: Welcome to my new AstroPaper blog.
 ---
 
-Welcome to my blog! This site uses AstroPaper while keeping only my content and configuration in its repository.
-
-To publish another article, add a Markdown or MDX file to `src/content/posts/` and push it to the `deploy` branch.
+Welcome to my blog! This site uses AstroPaper.
