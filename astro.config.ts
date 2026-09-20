@@ -20,7 +20,8 @@ import { transformerFileName } from "./src/utils/transformers/fileName";
 import config from "./astro-paper.config";
 
 export default defineConfig({
-  site: config.site.url,
+  site: process.env.ASTRO_SITE || config.site.url,
+  base: process.env.ASTRO_BASE || "/",
   integrations: [
     mdx(),
     sitemap({
@@ -29,8 +30,8 @@ export default defineConfig({
     }),
   ],
   i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
+    locales: ["ja"],
+    defaultLocale: "ja",
     routing: {
       prefixDefaultLocale: false,
     },
