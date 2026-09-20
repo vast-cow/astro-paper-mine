@@ -1,12 +1,19 @@
 import { defineAstroPaperConfig } from "./src/types/config";
 
+const githubOwner = process.env.GITHUB_REPOSITORY_OWNER || "local-author";
+const githubServerUrl = process.env.GITHUB_SERVER_URL || "https://github.com";
+const githubRepository = process.env.GITHUB_REPOSITORY || `${githubOwner}/blog`;
+const githubRef = process.env.GITHUB_REF_NAME || "main";
+const siteUrl = process.env.SITE_URL || "http://localhost:4321";
+const githubProfile = `${githubServerUrl}/${githubOwner}`;
+
 export default defineAstroPaperConfig({
   site: {
-    url: "https://vast-cow.github.io/",
-    title: "vast-cow's blog",
+    url: siteUrl,
+    title: `${githubOwner}'s blog`,
     description: "Notes, ideas, and things I learn along the way.",
-    author: "vast-cow",
-    profile: "https://github.com/vast-cow",
+    author: githubOwner,
+    profile: githubProfile,
     lang: "en",
     timezone: "Etc/UTC",
     dir: "ltr",
@@ -18,12 +25,12 @@ export default defineAstroPaperConfig({
     showBackButton: true,
     editPost: {
       enabled: true,
-      url: "https://github.com/vast-cow/vast-cow.github.io/edit/main/",
+      url: `${githubServerUrl}/${githubRepository}/edit/${githubRef}/`,
     },
     search: "pagefind",
   },
   socials: [
-    { name: "github", url: "https://github.com/vast-cow" },
+    { name: "github", url: githubProfile },
   ],
   shareLinks: [
     { name: "x", url: "https://x.com/intent/post?url=" },

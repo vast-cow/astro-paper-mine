@@ -1,4 +1,4 @@
-# vast-cow's blog
+# AstroPaper blog
 
 This repository stores only the files that differ from the
 [AstroPaper](https://github.com/satnaing/astro-paper) template. The files use
@@ -11,7 +11,14 @@ On every push to `main`, GitHub Actions:
 1. downloads the AstroPaper version pinned in `scripts/prepare-site.sh`;
 2. removes the template's sample posts and pages;
 3. copies this repository's overrides into the downloaded project;
-4. builds the site and deploys the result to GitHub Pages.
+4. reads the authoritative site URL, origin, and base path from GitHub Pages;
+5. builds the site and deploys the result to GitHub Pages.
+
+The workflow also uses GitHub's built-in repository environment variables for
+the author, profile, social, and edit links. No owner, repository URL, or Pages
+base path needs to be stored in this repository. The same workflow therefore
+supports both root-hosted user/organization Pages and subdirectory-hosted
+project Pages, including custom domains configured through GitHub Pages.
 
 In the repository settings, set **Pages → Build and deployment → Source** to
 **GitHub Actions**.
@@ -21,8 +28,8 @@ In the repository settings, set **Pages → Build and deployment → Source** to
 The preparation script creates a complete Astro project outside this repository:
 
 ```sh
-scripts/prepare-site.sh /tmp/vast-cow-blog
-cd /tmp/vast-cow-blog
+scripts/prepare-site.sh /tmp/astropaper-blog
+cd /tmp/astropaper-blog
 corepack enable
 pnpm install --frozen-lockfile
 pnpm dev

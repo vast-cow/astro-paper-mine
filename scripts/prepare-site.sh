@@ -12,6 +12,10 @@ mkdir -p "$DESTINATION"
 curl --fail --location --silent --show-error "$ARCHIVE_URL" |
   tar --extract --gzip --strip-components=1 --directory "$DESTINATION"
 
+# Keep the complete upstream configuration available to the small local wrapper,
+# which only supplies deployment values that GitHub Pages determines at build time.
+mv "$DESTINATION/astro.config.ts" "$DESTINATION/astro.config.upstream.ts"
+
 # The upstream repository includes documentation and example content. Remove that
 # content so this repository remains the source of truth for pages and posts.
 rm -rf "$DESTINATION/src/content"
