@@ -1,19 +1,20 @@
 import { defineAstroPaperConfig } from "./src/types/config";
 
-const githubOwner = process.env.GITHUB_REPOSITORY_OWNER || "local-author";
-const githubServerUrl = process.env.GITHUB_SERVER_URL || "https://github.com";
-const githubRepository = process.env.GITHUB_REPOSITORY || `${githubOwner}/blog`;
-const githubRef = process.env.GITHUB_REF_NAME || "deploy";
+const author = process.env.ASTRO_AUTHOR || "local-author";
+const editPostUrl =
+  process.env.ASTRO_EDIT_POST_URL ||
+  `https://github.com/${author}/blog/edit/deploy/`;
+const profileUrl =
+  process.env.ASTRO_PROFILE_URL || `https://github.com/${author}`;
 const siteUrl = process.env.SITE_URL || "http://localhost:4321";
-const githubProfile = `${githubServerUrl}/${githubOwner}`;
 
 export default defineAstroPaperConfig({
   site: {
     url: siteUrl,
-    title: `${githubOwner}のブログ`,
+    title: `${author}のブログ`,
     description: "日々の学びや考えたことを日本語で記録するブログです。",
-    author: githubOwner,
-    profile: githubProfile,
+    author,
+    profile: profileUrl,
     ogImage: "default-og.jpg",
     lang: "ja",
     timezone: "Asia/Tokyo",
@@ -31,15 +32,15 @@ export default defineAstroPaperConfig({
     showBackButton: true,
     editPost: {
       enabled: true,
-      url: `${githubServerUrl}/${githubRepository}/edit/${githubRef}/`,
+      url: editPostUrl,
     },
     search: "pagefind",
   },
   socials: [
     {
       name: "github",
-      url: githubProfile,
-      linkTitle: `${githubOwner}のGitHubプロフィール`,
+      url: profileUrl,
+      linkTitle: `${author}のGitHubプロフィール`,
     },
   ],
   shareLinks: [
