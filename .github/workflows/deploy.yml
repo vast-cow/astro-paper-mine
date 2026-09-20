@@ -33,8 +33,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: pnpm
-          cache-dependency-path: ${{ runner.temp }}/site/pnpm-lock.yaml
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
