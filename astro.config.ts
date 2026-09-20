@@ -7,4 +7,11 @@ export default defineConfig({
   ...upstreamConfig,
   site: process.env.ASTRO_SITE || upstreamConfig.site,
   base: process.env.ASTRO_BASE || "/",
+  i18n: {
+    locales: ["ja"],
+    defaultLocale: "ja",
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
 });

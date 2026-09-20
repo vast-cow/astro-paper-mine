@@ -1,8 +1,8 @@
 ---
-title: "About"
-description: "About this blog."
+title: "このブログについて"
+description: "このブログの紹介です。"
 ---
 
-This is where I share notes, ideas, and things I learn.
+日々の学びや考えたことを、日本語で記録するブログです。
 
-The site is built with [AstroPaper](https://github.com/satnaing/astro-paper) and deployed automatically with GitHub Actions.
+このサイトは [AstroPaper](https://github.com/satnaing/astro-paper) で構築し、GitHub Actions を使って自動的にデプロイしています。

@@ -1,12 +1,12 @@
 ---
 pubDatetime: 2026-09-20T00:00:00Z
-title: Hello, world!
+title: はじめまして
 featured: true
 tags:
-  - meta
-description: Welcome to my new AstroPaper blog.
+  - お知らせ
+description: 新しい日本語ブログへようこそ。
 ---
 
-Welcome to my blog! This site uses AstroPaper while keeping only my content and configuration in its repository.
+ブログへようこそ。このサイトでは AstroPaper を利用し、リポジトリには自分の記事と設定だけを保存しています。
 
-To publish another article, add a Markdown or MDX file to `src/content/posts/` and push it to the `main` branch.
+新しい記事を公開するには、`src/content/posts/` に Markdown または MDX ファイルを追加し、`main` ブランチへプッシュします。

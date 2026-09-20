@@ -1,0 +1,67 @@
+import type { UIStrings } from "../types";
+
+export default {
+  nav: {
+    home: "ホーム",
+    posts: "記事",
+    tags: "タグ",
+    about: "このブログについて",
+    archives: "アーカイブ",
+    search: "検索",
+  },
+  post: {
+    publishedAt: "公開日",
+    updatedAt: "更新日",
+    sharePostIntro: "この記事を共有:",
+    sharePostOn: "この記事を{{platform}}で共有",
+    sharePostViaEmail: "この記事をメールで共有",
+    tagLabel: "タグ",
+    backToTop: "ページ上部へ戻る",
+    goBack: "前のページへ戻る",
+    editPage: "この記事を編集",
+    previousPost: "前の記事",
+    nextPost: "次の記事",
+  },
+  pagination: {
+    prev: "前へ",
+    next: "次へ",
+    page: "ページ",
+  },
+  home: {
+    socialLinks: "ソーシャルリンク",
+    featured: "おすすめ記事",
+    recentPosts: "最近の記事",
+    allPosts: "すべての記事",
+  },
+  footer: {
+    copyright: "著作権",
+    allRightsReserved: "無断転載を禁じます。",
+  },
+  pages: {
+    tagTitle: "タグ",
+    tagDesc: "このタグが付いた記事の一覧",
+    tagsTitle: "タグ",
+    tagsDesc: "記事で使われているタグの一覧です。",
+    postsTitle: "記事",
+    postsDesc: "これまでに公開した記事の一覧です。",
+    archivesTitle: "アーカイブ",
+    archivesDesc: "これまでに公開した記事を年月別にまとめています。",
+    searchTitle: "検索",
+    searchDesc: "ブログ内の記事を検索できます。",
+  },
+  a11y: {
+    skipToContent: "本文へ移動",
+    openMenu: "メニューを開く",
+    closeMenu: "メニューを閉じる",
+    toggleTheme: "表示テーマを切り替える",
+    searchPlaceholder: "記事を検索…",
+    noResults: "検索結果はありません",
+    goToPreviousPage: "前のページへ移動",
+    goToNextPage: "次のページへ移動",
+  },
+  notFound: {
+    title: "404 ページが見つかりません",
+    message: "お探しのページは見つかりませんでした",
+    goHome: "ホームへ戻る",
+  },
+} satisfies UIStrings;
