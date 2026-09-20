@@ -21,6 +21,12 @@ jobs:
       - name: Checkout site
         uses: actions/checkout@v4
 
+      - name: Checkout posts
+        uses: actions/checkout@v4
+        with:
+          ref: posts
+          path: src/content/posts
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
