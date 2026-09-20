@@ -1,21 +1,22 @@
 import { defineAstroPaperConfig } from "./src/types/config";
 
+const githubOwner = process.env.GITHUB_REPOSITORY_OWNER || "local-author";
+const githubServerUrl = process.env.GITHUB_SERVER_URL || "https://github.com";
+const githubRepository = process.env.GITHUB_REPOSITORY || `${githubOwner}/blog`;
+const githubRef = process.env.GITHUB_REF_NAME || "deploy";
+const siteUrl = process.env.SITE_URL || "http://localhost:4321";
+const githubProfile = `${githubServerUrl}/${githubOwner}`;
+
 export default defineAstroPaperConfig({
   site: {
-    url: "https://astro-paper.pages.dev/",
-    title: "AstroPaper",
-    description: "A minimal, responsive and SEO-friendly Astro blog theme.",
-    author: "Sat Naing",
-    profile: "https://satna.ing",
-    ogImage: "default-og.jpg",
+    url: siteUrl,
+    title: `${githubOwner}'s blog`,
+    description: "Notes, ideas, and things I learn along the way.",
+    author: githubOwner,
+    profile: githubProfile,
     lang: "en",
-    timezone: "Asia/Bangkok",
+    timezone: "Etc/UTC",
     dir: "ltr",
-  },
-  posts: {
-    perPage: 4,
-    perIndex: 4,
-    scheduledPostMargin: 15 * 60 * 1000,
   },
   features: {
     lightAndDarkMode: true,
@@ -24,22 +25,16 @@ export default defineAstroPaperConfig({
     showBackButton: true,
     editPost: {
       enabled: true,
-      url: "https://github.com/satnaing/astro-paper/edit/main/",
+      url: `${githubServerUrl}/${githubRepository}/edit/${githubRef}/`,
     },
     search: "pagefind",
   },
   socials: [
-    { name: "github",   url: "https://github.com/satnaing/astro-paper" },
-    { name: "x",        url: "https://x.com/username" },
-    { name: "linkedin", url: "https://www.linkedin.com/in/username/" },
-    { name: "mail",     url: "mailto:yourmail@gmail.com" },
+    { name: "github", url: githubProfile },
   ],
   shareLinks: [
-    { name: "whatsapp", url: "https://wa.me/?text=" },
+    { name: "x", url: "https://x.com/intent/post?url=" },
     { name: "facebook", url: "https://www.facebook.com/sharer.php?u=" },
-    { name: "x",        url: "https://x.com/intent/post?url=" },
-    { name: "telegram", url: "https://t.me/share/url?url=" },
-    { name: "pinterest", url: "https://pinterest.com/pin/create/button/?url=" },
-    { name: "mail",     url: "mailto:?subject=See%20this%20post&body=" },
+    { name: "mail", url: "mailto:?subject=See%20this%20post&body=" },
   ],
 });
