@@ -4,6 +4,9 @@ dist/
 # generated types
 .astro/
 
+# downloaded build assets
+.cache/
+
 # dependencies
 node_modules/
 
