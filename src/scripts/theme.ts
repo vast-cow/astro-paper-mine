@@ -1,6 +1,7 @@
 const THEME_KEY = "theme";
 const LIGHT = "light";
 const DARK = "dark";
+const THEME_CHANGE_EVENT = "theme-change";
 
 function getPreferredTheme(): string {
   const stored = localStorage.getItem(THEME_KEY);
@@ -32,6 +33,10 @@ function reflect(): void {
   document
     .querySelector("meta[name='theme-color']")
     ?.setAttribute("content", bg);
+
+  document.dispatchEvent(
+    new CustomEvent(THEME_CHANGE_EVENT, { detail: { theme: themeValue } })
+  );
 }
 
 function setup(): void {

@@ -1,0 +1,94 @@
+---
+import {
+  PUBLIC_GISCUS_CATEGORY,
+  PUBLIC_GISCUS_CATEGORY_ID,
+  PUBLIC_GISCUS_REPO,
+  PUBLIC_GISCUS_REPO_ID,
+} from "astro:env/client";
+import config from "@/config";
+import { useTranslations } from "@/i18n";
+
+const values = [
+  PUBLIC_GISCUS_REPO,
+  PUBLIC_GISCUS_REPO_ID,
+  PUBLIC_GISCUS_CATEGORY,
+  PUBLIC_GISCUS_CATEGORY_ID,
+];
+const hasAnyConfig = values.some(Boolean);
+const hasCompleteConfig = values.every(Boolean);
+
+if (hasAnyConfig && !hasCompleteConfig) {
+  // eslint-disable-next-line no-console -- surface a partial, unusable setup at build time
+  console.warn(
+    "Giscus comments are disabled: all four PUBLIC_GISCUS_* variables must be configured."
+  );
+}
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+---
+
+{
+  hasCompleteConfig && (
+    <section class="mt-8" aria-labelledby="comments-heading">
+      <h2 id="comments-heading" class="mb-6 text-2xl font-bold">
+        {t.post.comments}
+      </h2>
+      <div
+        id="giscus-comments"
+        data-repo={PUBLIC_GISCUS_REPO}
+        data-repo-id={PUBLIC_GISCUS_REPO_ID}
+        data-category={PUBLIC_GISCUS_CATEGORY}
+        data-category-id={PUBLIC_GISCUS_CATEGORY_ID}
+        data-lang={config.site.lang}
+      />
+    </section>
+  )
+}
+
+<script>
+  const THEME_CHANGE_EVENT = "theme-change";
+
+  function currentTheme(): "light" | "dark" {
+    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  }
+
+  function mountGiscus(): void {
+    const container = document.querySelector<HTMLElement>("#giscus-comments");
+    if (!container || container.querySelector("script, iframe")) return;
+
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    script.dataset.repo = container.dataset.repo ?? "";
+    script.dataset.repoId = container.dataset.repoId ?? "";
+    script.dataset.category = container.dataset.category ?? "";
+    script.dataset.categoryId = container.dataset.categoryId ?? "";
+    script.dataset.mapping = "pathname";
+    script.dataset.strict = "0";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "bottom";
+    script.dataset.theme = currentTheme();
+    script.dataset.lang = container.dataset.lang ?? "en";
+    script.dataset.loading = "lazy";
+    container.appendChild(script);
+  }
+
+  function syncGiscusTheme(event: Event): void {
+    const theme =
+      (event as CustomEvent<{ theme?: "light" | "dark" }>).detail?.theme ??
+      currentTheme();
+    const iframe = document.querySelector<HTMLIFrameElement>(
+      "#giscus-comments iframe.giscus-frame"
+    );
+    iframe?.contentWindow?.postMessage(
+      { giscus: { setConfig: { theme } } },
+      "https://giscus.app"
+    );
+  }
+
+  document.addEventListener("astro:page-load", mountGiscus);
+  document.addEventListener(THEME_CHANGE_EVENT, syncGiscusTheme);
+</script>
