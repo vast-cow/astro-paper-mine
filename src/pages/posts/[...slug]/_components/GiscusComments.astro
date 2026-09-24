@@ -1,0 +1,118 @@
+---
+import {
+  PUBLIC_GISCUS_CATEGORY,
+  PUBLIC_GISCUS_CATEGORY_ID,
+  PUBLIC_GISCUS_REPO,
+  PUBLIC_GISCUS_REPO_ID,
+} from "astro:env/client";
+import config from "@/config";
+import { useTranslations } from "@/i18n";
+
+const giscusConfig = {
+  repo: PUBLIC_GISCUS_REPO?.trim(),
+  repoId: PUBLIC_GISCUS_REPO_ID?.trim(),
+  category: PUBLIC_GISCUS_CATEGORY?.trim(),
+  categoryId: PUBLIC_GISCUS_CATEGORY_ID?.trim(),
+};
+const giscusValues = Object.values(giscusConfig);
+const isConfigured = giscusValues.every(Boolean);
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+---
+
+{
+  isConfigured && (
+    <section
+      class="mb-8"
+      aria-labelledby="comments-heading"
+      data-giscus-comments
+      data-repo={giscusConfig.repo}
+      data-repo-id={giscusConfig.repoId}
+      data-category={giscusConfig.category}
+      data-category-id={giscusConfig.categoryId}
+      data-lang={config.site.lang}
+    >
+      <h2 id="comments-heading" class="mb-4 text-2xl font-bold">
+        {t.post.comments}
+      </h2>
+      <div data-giscus-container />
+    </section>
+  )
+}
+
+<script>
+  const selector = "[data-giscus-comments]";
+
+  function currentTheme(): "light" | "dark" {
+    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  }
+
+  function loadGiscus(): void {
+    document.querySelectorAll<HTMLElement>(selector).forEach(section => {
+      const container = section.querySelector<HTMLElement>(
+        "[data-giscus-container]"
+      );
+      if (!container || container.childElementCount > 0) return;
+
+      const script = document.createElement("script");
+      script.src = "https://giscus.app/client.js";
+      script.async = true;
+      script.crossOrigin = "anonymous";
+      script.setAttribute("data-repo", section.dataset.repo ?? "");
+      script.setAttribute("data-repo-id", section.dataset.repoId ?? "");
+      script.setAttribute("data-category", section.dataset.category ?? "");
+      script.setAttribute("data-category-id", section.dataset.categoryId ?? "");
+      script.setAttribute("data-mapping", "pathname");
+      script.setAttribute("data-strict", "0");
+      script.setAttribute("data-reactions-enabled", "1");
+      script.setAttribute("data-emit-metadata", "0");
+      script.setAttribute("data-input-position", "bottom");
+      script.setAttribute("data-theme", currentTheme());
+      script.setAttribute("data-lang", section.dataset.lang ?? "en");
+      script.setAttribute("data-loading", "lazy");
+      script.addEventListener("load", () => setGiscusTheme(currentTheme()), {
+        once: true,
+      });
+      container.appendChild(script);
+    });
+  }
+
+  function setGiscusTheme(theme: "light" | "dark"): void {
+    const iframe = document.querySelector<HTMLIFrameElement>(
+      `${selector} iframe.giscus-frame`
+    );
+    iframe?.contentWindow?.postMessage(
+      { giscus: { setConfig: { theme } } },
+      "https://giscus.app"
+    );
+    if (iframe) iframe.dataset.giscusTheme = theme;
+  }
+
+  function updateGiscusTheme(event: Event): void {
+    const theme = (event as CustomEvent<{ theme?: string }>).detail?.theme;
+    if (theme !== "light" && theme !== "dark") return;
+
+    document
+      .querySelector<HTMLScriptElement>(`${selector} script[src*="giscus.app"]`)
+      ?.setAttribute("data-theme", theme);
+    setGiscusTheme(theme);
+  }
+
+  function synchronizeLoadedGiscus(event: MessageEvent): void {
+    if (event.origin !== "https://giscus.app") return;
+    const iframe = document.querySelector<HTMLIFrameElement>(
+      `${selector} iframe.giscus-frame`
+    );
+    const theme = currentTheme();
+    if (
+      event.source === iframe?.contentWindow &&
+      iframe.dataset.giscusTheme !== theme
+    ) {
+      setGiscusTheme(theme);
+    }
+  }
+
+  document.addEventListener("astro:page-load", loadGiscus);
+  document.addEventListener("astro-paper:theme-change", updateGiscusTheme);
+  window.addEventListener("message", synchronizeLoadedGiscus);
+</script>

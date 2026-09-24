@@ -22,6 +22,7 @@ function persist(): void {
 
 function reflect(): void {
   const root = document.firstElementChild;
+  const previousTheme = root?.getAttribute("data-theme");
   root?.setAttribute("data-theme", themeValue);
   root?.classList.toggle("dark", themeValue === DARK);
   document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
@@ -32,6 +33,14 @@ function reflect(): void {
   document
     .querySelector("meta[name='theme-color']")
     ?.setAttribute("content", bg);
+
+  if (previousTheme !== themeValue) {
+    document.dispatchEvent(
+      new CustomEvent("astro-paper:theme-change", {
+        detail: { theme: themeValue },
+      })
+    );
+  }
 }
 
 function setup(): void {

@@ -21,6 +21,7 @@ export default {
     editPage: "この記事を編集",
     previousPost: "前の記事",
     nextPost: "次の記事",
+    comments: "コメント",
   },
   pagination: {
     prev: "前へ",
