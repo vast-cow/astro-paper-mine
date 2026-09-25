@@ -4,8 +4,8 @@ import sharp from "sharp";
 import { loadOgFonts } from "@/utils/loadOgFonts";
 import config from "@/config";
 
-export const GET: APIRoute = async () => {
-  const { regular, bold } = await loadOgFonts();
+export const GET: APIRoute = async ({ url }) => {
+  const { family, regular, bold } = await loadOgFonts(url);
 
   const svg = await satori(
     {
@@ -18,7 +18,7 @@ export const GET: APIRoute = async () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "Noto Sans JP",
+          fontFamily: family,
         },
         children: [
           {
@@ -129,13 +129,13 @@ export const GET: APIRoute = async () => {
       embedFont: true,
       fonts: [
         {
-          name: "Noto Sans JP",
+          name: family,
           data: regular,
           weight: 400,
           style: "normal",
         },
         {
-          name: "Noto Sans JP",
+          name: family,
           data: bold,
           weight: 700,
           style: "normal",

@@ -21,12 +21,12 @@ export async function getStaticPaths() {
   }));
 }
 
-export const GET: APIRoute = async ({ props }) => {
+export const GET: APIRoute = async ({ props, url }) => {
   if (!config.features.dynamicOgImage) {
     return new Response(null, { status: 404, statusText: "Not found" });
   }
 
-  const { regular, bold } = await loadOgFonts();
+  const { family, regular, bold } = await loadOgFonts(url);
 
   const svg = await satori(
     {
@@ -39,7 +39,7 @@ export const GET: APIRoute = async ({ props }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "Noto Sans JP",
+          fontFamily: family,
         },
         children: [
           {
@@ -158,13 +158,13 @@ export const GET: APIRoute = async ({ props }) => {
       embedFont: true,
       fonts: [
         {
-          name: "Noto Sans JP",
+          name: family,
           data: regular,
           weight: 400,
           style: "normal",
         },
         {
-          name: "Noto Sans JP",
+          name: family,
           data: bold,
           weight: 700,
           style: "normal",

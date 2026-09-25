@@ -8,16 +8,40 @@ const profileUrl =
   process.env.ASTRO_PROFILE_URL || `https://github.com/${author}`;
 const siteUrl = process.env.SITE_URL || "http://localhost:4321";
 
+type BlogLang = "en" | "ja";
+
+const rawLang = process.env.BLOG_LANG ?? "en";
+
+if (rawLang !== "en" && rawLang !== "ja") {
+  throw new Error(
+    `Unsupported BLOG_LANG: ${rawLang}. Expected "en" or "ja".`
+  );
+}
+
+const lang: BlogLang = rawLang;
+const localized = {
+  en: {
+    title: `${author}'s blog`,
+    description: "Notes, ideas, and things I learn along the way.",
+    timezone: "Etc/UTC",
+  },
+  ja: {
+    title: `${author}のブログ`,
+    description: "日々の学びや考えたことを日本語で記録するブログです。",
+    timezone: "Asia/Tokyo",
+  },
+}[lang];
+
 export default defineAstroPaperConfig({
   site: {
     url: siteUrl,
-    title: `${author}のブログ`,
-    description: "日々の学びや考えたことを日本語で記録するブログです。",
+    title: localized.title,
+    description: localized.description,
     author,
     profile: profileUrl,
     ogImage: "default-og.jpg",
-    lang: "ja",
-    timezone: "Asia/Tokyo",
+    lang,
+    timezone: localized.timezone,
     dir: "ltr",
   },
   posts: {
