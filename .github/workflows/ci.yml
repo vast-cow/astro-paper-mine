@@ -13,8 +13,8 @@ on:
   workflow_call:
 
 jobs:
-  build:
-    name: Code standards & build
+  quality:
+    name: Code standards
     runs-on: ubuntu-latest
     timeout-minutes: 3
 
@@ -41,6 +41,41 @@ jobs:
 
       - name: "📝 Checking code format"
         run: pnpm run format:check
+
+  build:
+    name: Build (${{ matrix.blog_lang }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        blog_lang:
+          - en
+          - ja
+    env:
+      BLOG_LANG: ${{ matrix.blog_lang }}
+
+    steps:
+      - name: "☁️ Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "📦 Install pnpm"
+        uses: pnpm/action-setup@v4
+        with:
+          version: "11.3.0"
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: "📦 Install dependencies"
+        run: pnpm install --frozen-lockfile
+
+      - name: "🔤 Download Japanese OG image fonts"
+        if: matrix.blog_lang == 'ja'
+        run: bash scripts/download-og-fonts.sh
 
       - name: "🚀 Build the project"
         run: pnpm run build

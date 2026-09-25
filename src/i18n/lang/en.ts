@@ -29,6 +29,12 @@ export default {
     page: "Page",
   },
   home: {
+    welcome: "Welcome!",
+    intro:
+      "I record my daily learnings and thoughts in easy-to-understand English.",
+    introSecondary:
+      "Please take your time and read the latest and recommended articles.",
+    rssFeed: "RSS Feed",
     socialLinks: "Social Links",
     featured: "Featured",
     recentPosts: "Recent Posts",

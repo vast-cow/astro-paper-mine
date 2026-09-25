@@ -7,11 +7,11 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
-const about = await getEntry("pages", "about");
+const about = await getEntry("pages", `${config.site.lang}/about`);
 
 if (!about) {
   throw new Error(
-    "Missing content entry: `about.md` or `about.mdx` in `src/content/pages/`"
+    `Missing content entry: \`${config.site.lang}/about.md\` or \`${config.site.lang}/about.mdx\` in \`src/content/pages/\``
   );
 }
 

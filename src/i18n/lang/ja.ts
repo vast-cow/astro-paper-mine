@@ -29,6 +29,11 @@ export default {
     page: "ページ",
   },
   home: {
+    welcome: "ようこそ",
+    intro: "日々の学びや考えたことを、日本語で分かりやすく記録しています。",
+    introSecondary:
+      "新着記事やおすすめの記事を、どうぞごゆっくりお読みください。",
+    rssFeed: "RSSフィード",
     socialLinks: "ソーシャルリンク",
     featured: "おすすめ記事",
     recentPosts: "最近の記事",

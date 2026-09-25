@@ -27,6 +27,10 @@ export interface UIStrings {
     page: string;
   };
   home: {
+    welcome: string;
+    intro: string;
+    introSecondary: string;
+    rssFeed: string;
     socialLinks: string;
     featured: string;
     recentPosts: string;

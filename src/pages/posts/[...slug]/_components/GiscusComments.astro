@@ -16,6 +16,14 @@ const giscusConfig = {
 };
 const giscusValues = Object.values(giscusConfig);
 const isConfigured = giscusValues.every(Boolean);
+const isPartiallyConfigured = giscusValues.some(Boolean) && !isConfigured;
+
+if (isPartiallyConfigured) {
+  // eslint-disable-next-line no-console -- surface a build-time configuration problem
+  console.warn(
+    "Giscus comments are disabled because only some PUBLIC_GISCUS_* environment variables are configured. Set all four values or leave all four empty."
+  );
+}
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 ---

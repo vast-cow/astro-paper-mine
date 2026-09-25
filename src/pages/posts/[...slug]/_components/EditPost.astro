@@ -18,7 +18,7 @@ const postPath = post.filePath?.replace(new RegExp(`^${BLOG_PATH}/`), "") ?? "";
 const href = editPost.enabled && postPath ? `${editPost.url}${postPath}` : "";
 const showEditPost = editPost.enabled && !hideEditPost && href.trim() !== "";
 
-const t = useTranslations(Astro.currentLocale);
+const t = useTranslations(Astro.currentLocale ?? config.site.lang);
 ---
 
 {

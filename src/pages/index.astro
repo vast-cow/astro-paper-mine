@@ -35,27 +35,25 @@ const homePath = getRelativeLocaleUrl(locale, "");
   >
     <section id="hero" class="border-border border-b pt-8 pb-6">
       <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        ようこそ
+        {t.home.welcome}
       </h1>
       <a
         target="_blank"
         href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
         class="inline-block"
-        aria-label="RSS Feed"
-        title="RSS Feed"
+        aria-label={t.home.rssFeed}
+        title={t.home.rssFeed}
       >
         <IconRss
           width={20}
           height={20}
           class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
         />
-        <span class="sr-only">RSS Feed</span>
+        <span class="sr-only">{t.home.rssFeed}</span>
       </a>
 
-      <p>日々の学びや考えたことを、日本語で分かりやすく記録しています。</p>
-      <p class="mt-2">
-        新着記事やおすすめの記事を、どうぞごゆっくりお読みください。
-      </p>
+      <p>{t.home.intro}</p>
+      <p class="mt-2">{t.home.introSecondary}</p>
       {
         socials.length > 0 && (
           <div class="mt-4 flex max-sm:flex-col sm:items-center">
