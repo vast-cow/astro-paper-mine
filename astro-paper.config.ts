@@ -4,7 +4,7 @@ const author = process.env.ASTRO_AUTHOR || "local-author";
 const githubRepository = process.env.GITHUB_REPOSITORY || `${author}/blog`;
 const editPostUrl =
   process.env.ASTRO_EDIT_POST_URL ||
-  `https://github.com/${githubRepository}/edit/posts/posts/`;
+  `https://github.com/${githubRepository}/blob/posts/posts/`;
 const profileUrl =
   process.env.ASTRO_PROFILE_URL || `https://github.com/${author}`;
 const siteUrl = process.env.SITE_URL || "http://localhost:4321";
